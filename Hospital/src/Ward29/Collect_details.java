@@ -5,6 +5,10 @@
  */
 package Ward29;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +17,30 @@ import javax.swing.JOptionPane;
  */
 public class Collect_details extends javax.swing.JFrame {
 
+    java.sql.Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+
     /**
      * Creates new form Collect_details
      */
     public Collect_details() {
         initComponents();
+        con = Connection.getConnection();
+    }
+
+    void clear() {
+        jTextArea1.setText(null);
+        jTextArea2.setText(null);
+        jTextArea3.setText(null);
+        jTextArea4.setText(null);
+        jTextField1.setText(null);
+        jTextField2.setText(null);
+        jTextField3.setText(null);
+        jTextField4.setText(null);
+        jTextField6.setText(null);
+        jTextArea3.setText(null);
+        jComboBox1.setSelectedItem("");
     }
 
     /**
@@ -306,6 +329,11 @@ public class Collect_details extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 153, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("SUBMIT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -444,17 +472,7 @@ public class Collect_details extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextArea1.setText(null);
-        jTextArea2.setText(null);
-        jTextArea3.setText(null);
-        jTextArea4.setText(null);
-        jTextField1.setText(null);
-        jTextField2.setText(null);
-        jTextField3.setText(null);
-        jTextField4.setText(null);
-        jTextField6.setText(null);
-        jTextArea3.setText(null);
-        jComboBox1.setSelectedItem("");
+        clear();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -475,7 +493,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-      new search().setVisible(true);
+        new search().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -491,6 +509,41 @@ public class Collect_details extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        java.util.Date d = new java.util.Date();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+         
+        try {
+            String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, jTextField1.getText());
+            ps.setString(2, jTextField2.getText());
+            ps.setString(3, jTextField3.getText());
+            ps.setString(4, jTextArea1.getText());
+            ps.setString(5, jTextField6.getText());
+            ps.setString(6, jTextField4.getText());
+            ps.setString(7, jTextArea4.getText());
+            ps.setString(8, (String) jComboBox1.getSelectedItem());
+            ps.setString(9, jTextArea3.getText());
+            ps.execute();
+            ps.close();
+            String[] arr = jTextArea2.getText().split(" ");
+            String sql2 = "insert into drug(ClinicNumber,patientHname,drugslist,date) values(?,?,?,?)";
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            ps2.setString(1, jTextField2.getText());
+            ps2.setString(2, jTextField1.getText());
+            ps2.setString(3, jTextArea2.getText());
+            ps2.setString(4, s.format(d));
+            ps2.execute();
+            ps.close();
+            JOptionPane.showMessageDialog(this, "Data is inserted");
+            clear();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
