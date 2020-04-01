@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
+import net.connectcode.Code39;
 
 /**
  *
@@ -89,6 +90,7 @@ public class Collect_details extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -296,6 +298,11 @@ public class Collect_details extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Clinic Number");
@@ -431,7 +438,9 @@ public class Collect_details extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,6 +448,10 @@ public class Collect_details extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jLabel9)
                 .addGap(43, 43, 43))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -712,6 +725,13 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea2.append("bisapralol 2.5mg bd \n");        // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        Code39 code39 = new Code39();
+        String outputStr = code39.encode(jTextField1.getText(), 1);
+        jLabel12.setText(outputStr);
+        jLabel12.setFont(new java.awt.Font("CCode39_S3_Trial", java.awt.Font.PLAIN, 30));        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -762,6 +782,7 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
