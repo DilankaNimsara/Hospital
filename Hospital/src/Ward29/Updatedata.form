@@ -63,11 +63,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+E"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Ward29/iconfinder_cancel_49826.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
@@ -82,7 +82,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Update Patient Details"/>
+    <Property name="title" type="java.lang.String" value="CARDIOLOGY CLINIC - Update Patient Details"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -233,7 +233,7 @@
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" pref="326" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -319,12 +319,22 @@
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="15">
                     <StringItem index="0" value=""/>
-                    <StringItem index="1" value="Item 1"/>
-                    <StringItem index="2" value="Item 2"/>
-                    <StringItem index="3" value="Item 3"/>
-                    <StringItem index="4" value="Item 4"/>
+                    <StringItem index="1" value="Eppawala"/>
+                    <StringItem index="2" value="Galenbindunwewa"/>
+                    <StringItem index="3" value="Galnewa"/>
+                    <StringItem index="4" value="Horowupottana"/>
+                    <StringItem index="5" value="Kahatagasdigiliya"/>
+                    <StringItem index="6" value="Kebitigollewa"/>
+                    <StringItem index="7" value="Kekirawa"/>
+                    <StringItem index="8" value="Mahawilachchiya"/>
+                    <StringItem index="9" value="Medawachchiya"/>
+                    <StringItem index="10" value="Mihintale"/>
+                    <StringItem index="11" value="Nochchiyagama"/>
+                    <StringItem index="12" value="Padaviya"/>
+                    <StringItem index="13" value="Talawa"/>
+                    <StringItem index="14" value="Tambuttegama"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -467,7 +477,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
                       </Group>
