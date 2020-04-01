@@ -720,7 +720,7 @@ public class Updatedata extends javax.swing.JFrame {
         String key = jTextField5.getText();
 
         try {
-            String username = (String) jComboBox1.getSelectedItem();
+           
             String sql = "update patient set "
                     + "Name='" + jTextField3.getText()
                     + "',Address ='" + jTextArea1.getText()

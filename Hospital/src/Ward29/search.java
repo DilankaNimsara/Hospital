@@ -5,6 +5,8 @@
  */
 package Ward29;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +15,104 @@ import javax.swing.JOptionPane;
  */
 public class search extends javax.swing.JFrame {
 
+    java.sql.Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+
     /**
      * Creates new form Collect_details
      */
     public search() {
         initComponents();
+        con = Connection.getConnection();
+    }
+
+    public search(String Hopsitalno) {
+        initComponents();
+        con = Connection.getConnection();
+        searchdata(Hopsitalno);
+    }
+
+    void searchdata() {
+        try {
+            String sql1 = "select * from patient where HospitalNumber='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "' ";
+            ps = con.prepareStatement(sql1);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String add1 = rs.getString("HospitalNumber");
+                jTextField1.setText(add1);
+                String add9 = rs.getString("ClinicNumber");
+                jTextField2.setText(add9);
+                String add2 = rs.getString("Name");
+                jTextField3.setText(add2);
+                String add3 = rs.getString("Address");
+                jTextArea1.setText(add3);
+                String add4 = rs.getString("Age");
+                jTextField6.setText(add4);
+                String add5 = rs.getString("TPNumber");
+                jTextField4.setText(add5);
+                String add6 = rs.getString("Diagnosis");
+                jTextArea4.setText(add6);
+                String add7 = rs.getString("NearestHospital");
+                jTextField8.setText(add7);
+                String add8 = rs.getString("Allergies");
+                jTextArea3.setText(add8);
+            }
+
+            String sql = "select * from drug where patientHname='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "'";
+            PreparedStatement ps2 = con.prepareStatement(sql);
+            ResultSet rs2 = ps2.executeQuery();
+            if (rs2.next()) {
+                String add2 = rs2.getString("drugslist");
+                jTextArea2.setText(add2);
+                String add1 = rs2.getString("date");
+                jTextField5.setText(add1);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+
+    void searchdata(String Hno) {
+        try {
+            String sql1 = "select * from patient where HospitalNumber='" + Hno + "' ";
+            ps = con.prepareStatement(sql1);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String add1 = rs.getString("HospitalNumber");
+                jTextField1.setText(add1);
+                String add9 = rs.getString("ClinicNumber");
+                jTextField2.setText(add9);
+                String add2 = rs.getString("Name");
+                jTextField3.setText(add2);
+                String add3 = rs.getString("Address");
+                jTextArea1.setText(add3);
+                String add4 = rs.getString("Age");
+                jTextField6.setText(add4);
+                String add5 = rs.getString("TPNumber");
+                jTextField4.setText(add5);
+                String add6 = rs.getString("Diagnosis");
+                jTextArea4.setText(add6);
+                String add7 = rs.getString("NearestHospital");
+                jTextField8.setText(add7);
+                String add8 = rs.getString("Allergies");
+                jTextArea3.setText(add8);
+            }
+
+            String sql = "select * from drug where patientHname='" + Hno + "'";
+            PreparedStatement ps2 = con.prepareStatement(sql);
+            ResultSet rs2 = ps2.executeQuery();
+            if (rs2.next()) {
+                String add2 = rs2.getString("drugslist");
+                jTextArea2.setText(add2);
+                String add1 = rs2.getString("date");
+                jTextField5.setText(add1);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }
 
     /**
@@ -92,7 +187,6 @@ public class search extends javax.swing.JFrame {
         jTextArea2.setBackground(new java.awt.Color(233, 233, 233));
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
@@ -103,7 +197,6 @@ public class search extends javax.swing.JFrame {
         jTextArea3.setBackground(new java.awt.Color(233, 233, 233));
         jTextArea3.setColumns(20);
         jTextArea3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextArea3.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea3.setRows(5);
         jScrollPane3.setViewportView(jTextArea3);
 
@@ -113,7 +206,6 @@ public class search extends javax.swing.JFrame {
         jTextField8.setEditable(false);
         jTextField8.setBackground(new java.awt.Color(233, 233, 233));
         jTextField8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(255, 255, 255));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -194,7 +286,6 @@ public class search extends javax.swing.JFrame {
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(233, 233, 233));
         jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(233, 233, 233));
@@ -215,7 +306,6 @@ public class search extends javax.swing.JFrame {
         jTextField6.setEditable(false);
         jTextField6.setBackground(new java.awt.Color(233, 233, 233));
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -225,7 +315,6 @@ public class search extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setBackground(new java.awt.Color(233, 233, 233));
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("Diagnosis");
@@ -234,7 +323,6 @@ public class search extends javax.swing.JFrame {
         jTextArea4.setBackground(new java.awt.Color(233, 233, 233));
         jTextArea4.setColumns(20);
         jTextArea4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextArea4.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea4.setRows(5);
         jScrollPane4.setViewportView(jTextArea4);
 
@@ -414,11 +502,21 @@ public class search extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Search");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Enter Hospital Number Or Clinic Number");
 
         jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -554,6 +652,7 @@ public class search extends javax.swing.JFrame {
         jTextField4.setText(null);
         jTextField5.setText(null);
         jTextField6.setText(null);
+        jTextField7.setText(null);
         jTextField8.setText(null);
         jTextArea3.setText(null);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -576,7 +675,7 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-      new search().setVisible(true);
+        new search().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -594,9 +693,17 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new drugsUpdate(1,jTextField1.getText()).setVisible(true);
+        new drugsUpdate(1, jTextField1.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        searchdata();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        searchdata();        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
 
     /**
      * @param args the command line arguments
