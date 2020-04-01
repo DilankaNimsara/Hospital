@@ -45,6 +45,7 @@ public class Updatedata extends javax.swing.JFrame {
         jTextField5.setText(null);
         jTextField6.setText(null);
         jTextArea3.setText(null);
+        jTextField7.setText(null);
         jComboBox1.setSelectedItem("");
     }
 
@@ -74,12 +75,14 @@ public class Updatedata extends javax.swing.JFrame {
                 jTextArea3.setText(add8);
             }
 
-            String sql = "select * from drug where patientHname='" + Hno + "'and time = (select max(time) from drug)";
+            String sql = "select * from drug where patientHname='" + Hno + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
             ResultSet rs2 = ps2.executeQuery();
             if (rs2.next()) {
                 String add2 = rs2.getString("drugslist");
                 jTextArea2.setText(add2);
+                String add1 = rs2.getString("date");
+                jTextField7.setText(add1);
             }
 
         } catch (Exception e) {
@@ -113,12 +116,14 @@ public class Updatedata extends javax.swing.JFrame {
                 jTextArea3.setText(add8);
             }
 
-            String sql = "select * from drug where patientHname='" + jTextField5.getText() + "' or ClinicNumber='" + jTextField5.getText() + "' ORDER BY time DESC";
+            String sql = "select * from drug where patientHname='" + jTextField5.getText() + "' or ClinicNumber='" + jTextField5.getText() + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
             ResultSet rs2 = ps2.executeQuery();
             if (rs2.next()) {
                 String add2 = rs2.getString("drugslist");
                 jTextArea2.setText(add2);
+                String add1 = rs2.getString("date");
+                jTextField7.setText(add1);
             }
 
         } catch (Exception e) {
@@ -146,6 +151,8 @@ public class Updatedata extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
@@ -182,7 +189,6 @@ public class Updatedata extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Patient Details");
-        setPreferredSize(new java.awt.Dimension(1500, 850));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -224,6 +230,13 @@ public class Updatedata extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setText("Last Drugs updated date");
+
+        jTextField7.setEditable(false);
+        jTextField7.setBackground(new java.awt.Color(233, 233, 233));
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -245,7 +258,10 @@ public class Updatedata extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 297, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5)))
                 .addContainerGap())
         );
@@ -265,9 +281,13 @@ public class Updatedata extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -414,7 +434,7 @@ public class Updatedata extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel13)
-                        .addGap(0, 74, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -630,9 +650,7 @@ public class Updatedata extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 42, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
         );
 
         pack();
@@ -774,6 +792,7 @@ public class Updatedata extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -809,5 +828,6 @@ public class Updatedata extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }

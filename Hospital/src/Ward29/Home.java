@@ -37,7 +37,7 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
-        setPreferredSize(new java.awt.Dimension(1500, 759));
+        setPreferredSize(new java.awt.Dimension(1500, 850));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -82,13 +82,13 @@ public class Home extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(80, 80, 80)
                 .addComponent(jButton2)
                 .addGap(80, 80, 80)
                 .addComponent(jButton3)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));

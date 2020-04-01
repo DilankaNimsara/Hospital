@@ -64,7 +64,7 @@ public class drugsUpdate extends javax.swing.JFrame {
             if (rs2.next()) {
                 String add2 = rs2.getString("drugslist");
                 jTextArea2.setText(add2);
-                druglist = (add2.replace("\n", "").replace("\r", " "));
+                druglist = (add2.replace("\n", " ").replace("\r", ""));
                 String add1 = rs2.getString("date");
                 jTextField4.setText(add1);
             }
@@ -107,7 +107,6 @@ public class drugsUpdate extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Drugs");
-        setPreferredSize(new java.awt.Dimension(1500, 850));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(982, 600));
@@ -291,9 +290,8 @@ public class drugsUpdate extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
 
@@ -333,7 +331,7 @@ public class drugsUpdate extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
         );
 
         pack();
@@ -359,7 +357,9 @@ public class drugsUpdate extends javax.swing.JFrame {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
 
-        if (!updatedgruslist.toLowerCase().contains(druglist.toLowerCase())) {
+//        System.out.println(updatedgruslist);
+//        System.out.println(druglist);
+        if (!updatedgruslist.toLowerCase().equalsIgnoreCase(druglist.toLowerCase())) {
 
             try {
                 String sql22 = "insert into drughistory(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
@@ -371,7 +371,7 @@ public class drugsUpdate extends javax.swing.JFrame {
                 ps22.setString(5, time.format(d));
                 ps22.execute();
                 ps22.close();
-                
+
                 String sql2 = "update drug set drugslist ='" + jTextArea2.getText() + "',date ='" + s.format(d) + "',time ='" + time.format(d) + "'where patientHname='" + Hopsitalno + "'";
                 PreparedStatement ps2 = con.prepareStatement(sql2);
                 ps2.execute();
