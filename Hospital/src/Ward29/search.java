@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class search extends javax.swing.JFrame {
-    
+
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -26,13 +26,13 @@ public class search extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
     }
-    
+
     public search(String Hopsitalno) {
         initComponents();
         con = Connection.getConnection();
         searchdata(Hopsitalno);
     }
-    
+
     void searchdata() {
         try {
             String sql1 = "select * from patient where HospitalNumber='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "' ";
@@ -58,7 +58,7 @@ public class search extends javax.swing.JFrame {
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
             }
-            
+
             String sql = "select * from drug where patientHname='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
             ResultSet rs2 = ps2.executeQuery();
@@ -68,12 +68,12 @@ public class search extends javax.swing.JFrame {
                 String add1 = rs2.getString("date");
                 jTextField5.setText(add1);
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
     }
-    
+
     void searchdata(String Hno) {
         try {
             String sql1 = "select * from patient where HospitalNumber='" + Hno + "' ";
@@ -99,7 +99,7 @@ public class search extends javax.swing.JFrame {
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
             }
-            
+
             String sql = "select * from drug where patientHname='" + Hno + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
             ResultSet rs2 = ps2.executeQuery();
@@ -109,7 +109,7 @@ public class search extends javax.swing.JFrame {
                 String add1 = rs2.getString("date");
                 jTextField5.setText(add1);
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -711,7 +711,7 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new print().setVisible(true);        // TODO add your handling code here:
+        new print(jTextArea2.getText(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText()).setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

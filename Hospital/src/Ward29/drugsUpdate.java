@@ -557,7 +557,11 @@ public class drugsUpdate extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new print().setVisible(true);
+        String text= jTextArea2.getText();
+        String text1= jTextField1.getText();
+        String text2= jTextField2.getText();
+        String text3= jTextField3.getText();
+        new print(text,text1,text2,text3).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
