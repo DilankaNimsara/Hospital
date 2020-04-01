@@ -62,6 +62,7 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea3 = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -125,6 +126,15 @@ public class Collect_details extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setText("Clear Drug List");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -139,9 +149,14 @@ public class Collect_details extends javax.swing.JFrame {
                         .addGap(0, 297, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(127, 127, 127)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(127, 127, 127))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3)
                             .addComponent(jScrollPane2))))
@@ -162,7 +177,8 @@ public class Collect_details extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -337,7 +353,7 @@ public class Collect_details extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("CLEAR");
+        jButton2.setText("CLEAR ALL");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -407,7 +423,7 @@ public class Collect_details extends javax.swing.JFrame {
 
         jMenuBar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jMenu1.setText("Home");
+        jMenu1.setText("File");
         jMenu1.setFocusable(false);
         jMenu1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jMenu1.setIconTextGap(10);
@@ -511,39 +527,61 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         java.util.Date d = new java.util.Date();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-         
-        try {
-            String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, jTextField1.getText());
-            ps.setString(2, jTextField2.getText());
-            ps.setString(3, jTextField3.getText());
-            ps.setString(4, jTextArea1.getText());
-            ps.setString(5, jTextField6.getText());
-            ps.setString(6, jTextField4.getText());
-            ps.setString(7, jTextArea4.getText());
-            ps.setString(8, (String) jComboBox1.getSelectedItem());
-            ps.setString(9, jTextArea3.getText());
-            ps.execute();
-            ps.close();
-            String[] arr = jTextArea2.getText().split(" ");
-            String sql2 = "insert into drug(ClinicNumber,patientHname,drugslist,date) values(?,?,?,?)";
-            PreparedStatement ps2 = con.prepareStatement(sql2);
-            ps2.setString(1, jTextField2.getText());
-            ps2.setString(2, jTextField1.getText());
-            ps2.setString(3, jTextArea2.getText());
-            ps2.setString(4, s.format(d));
-            ps2.execute();
-            ps.close();
-            JOptionPane.showMessageDialog(this, "Data is inserted");
-            clear();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
+//        System.out.println(time.format(d));
+
+        if (jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField3.getText().equals("") && jTextField4.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Fill user details", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            try {
+                String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, jTextField1.getText());
+                ps.setString(2, jTextField2.getText());
+                ps.setString(3, jTextField3.getText());
+                ps.setString(4, jTextArea1.getText());
+                ps.setString(5, jTextField6.getText());
+                ps.setString(6, jTextField4.getText());
+                ps.setString(7, jTextArea4.getText());
+                ps.setString(8, (String) jComboBox1.getSelectedItem());
+                ps.setString(9, jTextArea3.getText());
+                ps.execute();
+                ps.close();
+                String[] arr = jTextArea2.getText().split(" ");
+                String sql2 = "insert into drug(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
+                PreparedStatement ps2 = con.prepareStatement(sql2);
+                ps2.setString(1, jTextField2.getText());
+                ps2.setString(2, jTextField1.getText());
+                ps2.setString(3, jTextArea2.getText());
+                ps2.setString(4, s.format(d));
+                ps2.setString(5, time.format(d));
+                ps2.execute();
+                ps.close();
+                String sql22 = "insert into drughistory(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
+                PreparedStatement ps22 = con.prepareStatement(sql22);
+                ps22.setString(1, jTextField2.getText());
+                ps22.setString(2, jTextField1.getText());
+                ps22.setString(3, jTextArea2.getText());
+                ps22.setString(4, s.format(d));
+                ps22.setString(5, time.format(d));
+                ps22.execute();
+                ps22.close();
+                JOptionPane.showMessageDialog(this, "Data is inserted");
+                clear();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Data already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jTextArea2.setText(null);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -584,6 +622,7 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

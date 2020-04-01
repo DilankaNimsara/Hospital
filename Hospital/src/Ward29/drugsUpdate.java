@@ -5,17 +5,74 @@
  */
 package Ward29;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dilanka Nimsara
  */
 public class drugsUpdate extends javax.swing.JFrame {
 
+    java.sql.Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    String druglist;
+
     /**
      * Creates new form Collect_details
      */
     public drugsUpdate() {
         initComponents();
+        con = Connection.getConnection();
+        search();
+    }
+
+    int value;
+    String Hopsitalno;
+
+    public drugsUpdate(int x, String Hno) {
+        initComponents();
+        con = Connection.getConnection();
+        value = x;
+        Hopsitalno = Hno;
+        search();
+
+    }
+
+    void search() {
+
+        try {
+            String sql1 = "select * from patient where HospitalNumber='" + Hopsitalno + "'";
+            ps = con.prepareStatement(sql1);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String add1 = rs.getString("HospitalNumber");
+                jTextField1.setText(add1);
+                String add9 = rs.getString("ClinicNumber");
+                jTextField2.setText(add9);
+                String add2 = rs.getString("Name");
+                jTextField3.setText(add2);
+            }
+
+            String sql = "select * from drug where patientHname='" + Hopsitalno + "' ";
+            PreparedStatement ps2 = con.prepareStatement(sql);
+            ResultSet rs2 = ps2.executeQuery();
+            if (rs2.next()) {
+                String add2 = rs2.getString("drugslist");
+                jTextArea2.setText(add2);
+                druglist = (add2.replace("\n", "").replace("\r", " "));
+                String add1 = rs2.getString("date");
+                jTextField4.setText(add1);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+
     }
 
     /**
@@ -284,17 +341,51 @@ public class drugsUpdate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new search().setVisible(true);
-        this.setVisible(false);        // TODO add your handling code here:
+
+        if (value == 0) {
+            new Updatedata(Hopsitalno).setVisible(true);
+            this.setVisible(false);
+        } else if (value == 1) {
+            new search().setVisible(true);
+            this.setVisible(false);
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-        
-        
-        new search().setVisible(true);
-        this.setVisible(false);
+
+        String updatedgruslist = jTextArea2.getText().replace("\n", " ").replace("\r", "");
+
+        java.util.Date d = new java.util.Date();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
+
+        if (!updatedgruslist.toLowerCase().contains(druglist.toLowerCase())) {
+
+            try {
+                String sql22 = "insert into drughistory(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
+                PreparedStatement ps22 = con.prepareStatement(sql22);
+                ps22.setString(1, jTextField2.getText());
+                ps22.setString(2, jTextField1.getText());
+                ps22.setString(3, jTextArea2.getText());
+                ps22.setString(4, s.format(d));
+                ps22.setString(5, time.format(d));
+                ps22.execute();
+                ps22.close();
+                
+                String sql2 = "update drug set drugslist ='" + jTextArea2.getText() + "',date ='" + s.format(d) + "',time ='" + time.format(d) + "'where patientHname='" + Hopsitalno + "'";
+                PreparedStatement ps2 = con.prepareStatement(sql2);
+                ps2.execute();
+                JOptionPane.showMessageDialog(this, "Updated");
+                ps2.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Update fail", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Drugs list already up to date");
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
