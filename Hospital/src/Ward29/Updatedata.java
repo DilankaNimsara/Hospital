@@ -5,8 +5,11 @@
  */
 package Ward29;
 
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,7 +33,7 @@ public class Updatedata extends javax.swing.JFrame {
     Updatedata(String Hopsitalno) {
         initComponents();
         con = Connection.getConnection();
-         search(Hopsitalno);
+        search(Hopsitalno);
     }
 
     void clear() {
@@ -51,6 +54,20 @@ public class Updatedata extends javax.swing.JFrame {
 
     void search(String Hno) {
         try {
+
+//            Statement st = con.createStatement();
+//            ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + Hno + "'");
+//            if (rs6.next()) {
+//                byte[] img = rs6.getBytes("img_data");
+//
+//                //Resize The ImageIcon
+//                ImageIcon image = new ImageIcon(img);
+//                Image im = image.getImage();
+//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon newImage = new ImageIcon(myImg);
+//                jLabel14.setIcon(newImage);
+//            }
+
             String sql1 = "select * from patient where HospitalNumber='" + Hno + "' ";
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
@@ -91,7 +108,41 @@ public class Updatedata extends javax.swing.JFrame {
     }
 
     void search() {
+
+//         try {
+////
+//////            Statement st = con.createStatement();
+//            ResultSet rs = st.executeQuery("select * from barcode where img_title = '"+jTextField1.getText()+"'");
+//            if (rs.next()) {
+//                byte[] img = rs.getBytes("img_data");
+//
+//                //Resize The ImageIcon
+//                ImageIcon image = new ImageIcon(img);
+//                Image im = image.getImage();
+//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon newImage = new ImageIcon(myImg);
+//                jLabel14.setIcon(newImage);
+////            } else {
+////                JOptionPane.showMessageDialog(null, "No Data");
+////            }
+////        } catch (Exception ex) {
+////            ex.printStackTrace();
+////        }
         try {
+
+//            Statement st = con.createStatement();
+//            ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + jTextField5.getText() + "'");
+//            if (rs6.next()) {
+//                byte[] img = rs6.getBytes("img_data");
+//
+//                //Resize The ImageIcon
+//                ImageIcon image = new ImageIcon(img);
+//                Image im = image.getImage();
+//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon newImage = new ImageIcon(myImg);
+//                jLabel14.setIcon(newImage);
+//            }
+
             String sql1 = "select * from patient where HospitalNumber='" + jTextField5.getText() + "' or ClinicNumber='" + jTextField5.getText() + "' ";
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
@@ -434,7 +485,7 @@ public class Updatedata extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel13)
-                        .addGap(0, 66, Short.MAX_VALUE))
+                        .addGap(0, 57, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -458,7 +509,7 @@ public class Updatedata extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel9)
-                .addGap(43, 43, 43))
+                .addGap(52, 52, 52))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -720,7 +771,7 @@ public class Updatedata extends javax.swing.JFrame {
         String key = jTextField5.getText();
 
         try {
-           
+
             String sql = "update patient set "
                     + "Name='" + jTextField3.getText()
                     + "',Address ='" + jTextArea1.getText()

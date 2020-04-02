@@ -5,14 +5,16 @@
  */
 package Ward29;
 
+import com.sun.swing.internal.plaf.basic.resources.basic;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -94,13 +96,13 @@ public class Collect_details extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -449,9 +451,7 @@ public class Collect_details extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(931, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,10 +459,6 @@ public class Collect_details extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jLabel9)
                 .addGap(43, 43, 43))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -478,7 +474,7 @@ public class Collect_details extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("CLEAR ALL");
+        jButton2.setText("Clear All");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -512,6 +508,15 @@ public class Collect_details extends javax.swing.JFrame {
             }
         });
 
+        jButton13.setBackground(new java.awt.Color(255, 255, 255));
+        jButton13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton13.setText("Print Barcode");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -520,11 +525,13 @@ public class Collect_details extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton12)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -534,12 +541,12 @@ public class Collect_details extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
 
@@ -662,20 +669,20 @@ public class Collect_details extends javax.swing.JFrame {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
-//        System.out.println(time.format(d));
 
         if (jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField3.getText().equals("") && jTextField4.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Fill user details", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
 
             try {
-                
-                 File image = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Hospital\\src\\images\\" + jTextField1.getText() + ".png");
+
+                File image = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Hospital\\src\\images\\" + jTextField1.getText() + ".png");
                 inputStream = new FileInputStream(image);
-                PreparedStatement statement = con.prepareStatement("insert into barcode(img_title, img_data) " + "values(?,?)");
-                statement.setString(1, jTextField1.getText());
-                statement.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
-                statement.executeUpdate();
+                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data) " + "values(?,?)");
+                ps4.setString(1, jTextField1.getText());
+                ps4.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
+                ps4.executeUpdate();
+                ps4.close();
 
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
@@ -734,7 +741,6 @@ public class Collect_details extends javax.swing.JFrame {
 //                    System.out.println("SQLException Finally: - " + e);
 //                }
 //            }
-
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -830,6 +836,30 @@ public class Collect_details extends javax.swing.JFrame {
         hno = jTextField1.getText();        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4KeyPressed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+
+        try {
+
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from barcode where img_title = '17020069'");
+            if (rs.next()) {
+                byte[] img = rs.getBytes("img_data");
+
+                //Resize The ImageIcon
+                ImageIcon image = new ImageIcon(img);
+                Image im = image.getImage();
+                Image myImg = im.getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon newImage = new ImageIcon(myImg);
+                jLabel12.setIcon(newImage);
+            } else {
+                JOptionPane.showMessageDialog(null, "No Data");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -870,6 +900,7 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -881,7 +912,6 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
