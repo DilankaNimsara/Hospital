@@ -5,10 +5,13 @@
  */
 package Ward29;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -18,12 +21,10 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class barcodesprint extends javax.swing.JFrame {
-    
+
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    
-    
 
     /**
      * Creates new form Collect_details
@@ -32,13 +33,13 @@ public class barcodesprint extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
         populateJTable();
-        jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
+
     }
-    
+
     public void populateJTable() {
         MyQuery mq = new MyQuery();
-        ArrayList<Product2> list = mq.BindTable();
-        String[] columnName = {"Hostptal Number","Date", "Barcode"};
+        ArrayList<Product2> list = mq.BindTable1();
+        String[] columnName = {"Hostptal Number", "Date", "Barcode"};
         Object[][] rows = new Object[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
             rows[i][0] = list.get(i).getName();
@@ -50,19 +51,44 @@ public class barcodesprint extends javax.swing.JFrame {
                         .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
 
                 rows[i][2] = image;
-            } 
+            }
         }
 
         TheModel model = new TheModel(rows, columnName);
         jTable1.setModel(model);
-        jTable1.setRowHeight(120);
+        jTable1.setRowHeight(130);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
+        jTable1.setBackground(new Color(233, 233, 233));
     }
-    
-    
-    
-    
-    
+
+    public void populateJTable(String d1) {
+        MyQuery mq = new MyQuery();
+        mq.dates(d1);
+        ArrayList<Product2> list = mq.BindTable();
+        String[] columnName = {"Hostptal Number", "Date", "Barcode"};
+        Object[][] rows = new Object[list.size()][3];
+        for (int i = 0; i < list.size(); i++) {
+            rows[i][0] = list.get(i).getName();
+            rows[i][1] = list.get(i).getDate();
+
+            if (list.get(i).getMyImage() != null) {
+
+                ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
+                        .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
+
+                rows[i][2] = image;
+            }
+        }
+
+        TheModel model = new TheModel(rows, columnName);
+        jTable1.setModel(model);
+        jTable1.setRowHeight(130);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
+        jTable1.setBackground(new Color(233, 233, 233));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,11 +104,13 @@ public class barcodesprint extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -118,7 +146,7 @@ public class barcodesprint extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel9)
-                .addGap(43, 43, 43))
+                .addGap(23, 23, 23))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -134,10 +162,19 @@ public class barcodesprint extends javax.swing.JFrame {
 
         jButton13.setBackground(new java.awt.Color(255, 255, 255));
         jButton13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton13.setText("Print Barcode");
+        jButton13.setText("Print Barcodes");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setBackground(new java.awt.Color(255, 255, 255));
+        jButton14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton14.setText("Clear");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
             }
         });
 
@@ -149,6 +186,8 @@ public class barcodesprint extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -157,9 +196,13 @@ public class barcodesprint extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,16 +220,40 @@ public class barcodesprint extends javax.swing.JFrame {
         jTable1.setSelectionBackground(new java.awt.Color(153, 153, 153));
         jScrollPane1.setViewportView(jTable1);
 
+        jDateChooser1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jDateChooser1KeyPressed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Select Date");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -195,12 +262,15 @@ public class barcodesprint extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -220,10 +290,10 @@ public class barcodesprint extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenuBar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -342,6 +412,30 @@ public class barcodesprint extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 = dFormat.format(jDateChooser1.getDate());
+        populateJTable(date1);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jDateChooser1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = dFormat.format(jDateChooser1.getDate());
+            populateJTable(date1);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooser1KeyPressed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        jDateChooser1.setDate(null);
+        populateJTable();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -379,10 +473,12 @@ public class barcodesprint extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
