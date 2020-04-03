@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class Collect_details extends javax.swing.JFrame {
-    
+
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -35,7 +35,7 @@ public class Collect_details extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
     }
-    
+
     void clear() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
@@ -48,7 +48,21 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea3.setText(null);
         jComboBox1.setSelectedItem("");
     }
-    
+
+    void clearall() {
+        jTextArea1.setText(null);
+        jTextArea3.setText(null);
+        jTextArea4.setText(null);
+        jTextField1.setText(null);
+        jTextField2.setText(null);
+        jTextField3.setText(null);
+        jTextField4.setText(null);
+        jTextField6.setText(null);
+        jTextArea3.setText(null);
+        jTextArea2.setText(null);
+        jComboBox1.setSelectedItem("");
+    }
+
     String text, hno, cno, name;
 
     /**
@@ -661,7 +675,7 @@ public class Collect_details extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        clear();
+        clearall();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -678,21 +692,21 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         Barcode_Image.createImage(jTextField1.getText() + ".png", jTextField1.getText());
-        
+
         java.util.Date d = new java.util.Date();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
-        
+
         if (jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField3.getText().equals("") && jTextField4.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Fill user details", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            
+
             try {
-                
-                File image = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Hospital\\src\\images\\" + jTextField1.getText() + ".png");
+
+                File image = new File("src\\images\\" + jTextField1.getText() + ".png");
                 inputStream = new FileInputStream(image);
                 PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) " + "values(?,?,?)");
                 ps4.setString(1, jTextField1.getText());
@@ -700,7 +714,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps4.setString(3, s.format(d));
                 ps4.executeUpdate();
                 ps4.close();
-                
+
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextField1.getText());
@@ -739,25 +753,6 @@ public class Collect_details extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Data already exists", "Warning", JOptionPane.WARNING_MESSAGE);
             }
 
-//            try {
-//                File image = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Hospital\\src\\images\\" + jTextField1.getText() + ".png");
-//                inputStream = new FileInputStream(image);
-//                PreparedStatement statement = con.prepareStatement("insert into barcode(img_title, img_data) " + "values(?,?)");
-//                statement.setString(1, jTextField1.getText());
-//                statement.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
-//                statement.executeUpdate();
-//            } catch (FileNotFoundException e) {
-//                System.out.println("FileNotFoundException: - " + e);
-//            } catch (SQLException e) {
-//                System.out.println("SQLException: - " + e);
-//            } finally {
-//                try {
-//                    con.close();
-////                statement.close();
-//                } catch (SQLException e) {
-//                    System.out.println("SQLException Finally: - " + e);
-//                }
-//            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -826,7 +821,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
         jTextArea2.setText(null);
         // TODO add your handling code here:

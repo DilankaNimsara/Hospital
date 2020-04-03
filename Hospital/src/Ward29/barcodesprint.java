@@ -9,10 +9,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -39,25 +42,24 @@ public class barcodesprint extends javax.swing.JFrame {
     public void populateJTable() {
         MyQuery mq = new MyQuery();
         ArrayList<Product2> list = mq.BindTable1();
-        String[] columnName = {"Hostptal Number", "Date", "Barcode"};
+        String[] columnName = {"Hostptal Number", "Barcode"};
         Object[][] rows = new Object[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
             rows[i][0] = list.get(i).getName();
-            rows[i][1] = list.get(i).getDate();
 
             if (list.get(i).getMyImage() != null) {
 
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
                         .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
 
-                rows[i][2] = image;
+                rows[i][1] = image;
             }
         }
 
         TheModel model = new TheModel(rows, columnName);
         jTable1.setModel(model);
         jTable1.setRowHeight(130);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
         jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
         jTable1.setBackground(new Color(233, 233, 233));
     }
@@ -66,25 +68,24 @@ public class barcodesprint extends javax.swing.JFrame {
         MyQuery mq = new MyQuery();
         mq.dates(d1);
         ArrayList<Product2> list = mq.BindTable();
-        String[] columnName = {"Hostptal Number", "Date", "Barcode"};
+        String[] columnName = {"Hostptal Number", "Barcode"};
         Object[][] rows = new Object[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
             rows[i][0] = list.get(i).getName();
-            rows[i][1] = list.get(i).getDate();
-
+            
             if (list.get(i).getMyImage() != null) {
 
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
                         .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
 
-                rows[i][2] = image;
+                rows[i][1] = image;
             }
         }
 
         TheModel model = new TheModel(rows, columnName);
         jTable1.setModel(model);
         jTable1.setRowHeight(130);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
         jTable1.setBackground(new Color(233, 233, 233));
     }
@@ -220,6 +221,11 @@ public class barcodesprint extends javax.swing.JFrame {
         jTable1.setSelectionBackground(new java.awt.Color(153, 153, 153));
         jScrollPane1.setViewportView(jTable1);
 
+        jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jDateChooser1MouseExited(evt);
+            }
+        });
         jDateChooser1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jDateChooser1KeyPressed(evt);
@@ -249,12 +255,12 @@ public class barcodesprint extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addGap(262, 262, 262))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(306, 306, 306)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -399,11 +405,16 @@ public class barcodesprint extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new barcodesprint().setVisible(true);
+        new Collect_details().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        try {
+            jTable1.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(barcodesprint.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton13ActionPerformed
 
@@ -435,6 +446,10 @@ public class barcodesprint extends javax.swing.JFrame {
         jDateChooser1.setDate(null);
         populateJTable();
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jDateChooser1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooser1MouseExited
 
     /**
      * @param args the command line arguments
