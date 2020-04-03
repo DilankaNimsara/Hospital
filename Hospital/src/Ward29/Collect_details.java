@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class Collect_details extends javax.swing.JFrame {
-
+    
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -35,7 +35,7 @@ public class Collect_details extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
     }
-
+    
     void clear() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
@@ -48,7 +48,7 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea3.setText(null);
         jComboBox1.setSelectedItem("");
     }
-
+    
     String text, hno, cno, name;
 
     /**
@@ -109,9 +109,11 @@ public class Collect_details extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Enter Patient Details");
+        setTitle("CARDIOLOGY CLINIC - Enter Patient Details");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -627,6 +629,20 @@ public class Collect_details extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setText("Barcode");
+        jMenu2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jMenuItem4.setText("Print Barcodes");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -662,28 +678,29 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         Barcode_Image.createImage(jTextField1.getText() + ".png", jTextField1.getText());
-
+        
         java.util.Date d = new java.util.Date();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-
+        
         SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
-
+        
         if (jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField3.getText().equals("") && jTextField4.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Fill user details", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
+            
             try {
-
+                
                 File image = new File("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Hospital\\src\\images\\" + jTextField1.getText() + ".png");
                 inputStream = new FileInputStream(image);
-                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data) " + "values(?,?)");
+                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) " + "values(?,?,?)");
                 ps4.setString(1, jTextField1.getText());
                 ps4.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
+                ps4.setString(3, s.format(d));
                 ps4.executeUpdate();
                 ps4.close();
-
+                
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextField1.getText());
@@ -809,7 +826,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-
+        
         new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
         jTextArea2.setText(null);
         // TODO add your handling code here:
@@ -838,27 +855,12 @@ public class Collect_details extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 
-        try {
-
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from barcode where img_title = '17020069'");
-            if (rs.next()) {
-                byte[] img = rs.getBytes("img_data");
-
-                //Resize The ImageIcon
-                ImageIcon image = new ImageIcon(img);
-                Image im = image.getImage();
-                Image myImg = im.getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), Image.SCALE_SMOOTH);
-                ImageIcon newImage = new ImageIcon(myImg);
-                jLabel12.setIcon(newImage);
-            } else {
-                JOptionPane.showMessageDialog(null, "No Data");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        new barcodesprint().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -922,10 +924,12 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

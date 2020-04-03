@@ -6,6 +6,7 @@
 package Ward29;
 
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
  *
@@ -22,5 +23,9 @@ public class Connection {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    Statement createStatement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
