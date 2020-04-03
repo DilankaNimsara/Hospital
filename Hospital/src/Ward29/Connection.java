@@ -13,11 +13,12 @@ import java.sql.Statement;
  * @author Dilanka Nimsara
  */
 public class Connection {
-    public static java.sql.Connection getConnection(){
+
+    public static java.sql.Connection getConnection() {
         java.sql.Connection con = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/hospital", "root", "");
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ASUS\\Documents\\hospital.sqlite");
             return con;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

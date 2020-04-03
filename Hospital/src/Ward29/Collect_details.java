@@ -5,16 +5,15 @@
  */
 package Ward29;
 
-import com.sun.swing.internal.plaf.basic.resources.basic;
-import java.awt.Image;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -708,13 +707,36 @@ public class Collect_details extends javax.swing.JFrame {
 
                 File image = new File("src\\images\\" + jTextField1.getText() + ".png");
                 inputStream = new FileInputStream(image);
-                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) " + "values(?,?,?)");
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = inputStream.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+
+                photo = bos.toByteArray();
+
+                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) values(?,?,?)");
                 ps4.setString(1, jTextField1.getText());
-                ps4.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
+                ps4.setBytes(2, photo);
                 ps4.setString(3, s.format(d));
-                ps4.executeUpdate();
+                ps4.execute();
                 ps4.close();
 
+//                String sql5 = "insert into barcode(img_title, img_data,date) values(?,?,?)";
+//                PreparedStatement ps5 = con.prepareStatement(sql5);
+//                ps5 = con.prepareStatement(sql5);
+//                ps5.setString(1, jTextField1.getText());
+//                ps5.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
+//                ps5.setString(3, s.format(d));
+//                ps.execute();
+//                ps.close();
+//                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) " + "values(?,?,?)");
+//                ps4.setString(1, jTextField1.getText());
+//                ps4.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
+//                ps4.setString(3, s.format(d));
+//                ps4.execute();
+//                ps4.close();
+//                
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextField1.getText());
@@ -945,4 +967,7 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
+
+    byte[] photo = null;
+
 }
