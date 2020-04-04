@@ -5,6 +5,7 @@
  */
 package Ward29;
 
+import java.awt.Toolkit;
 import java.awt.print.PrinterException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +28,7 @@ public class print extends javax.swing.JFrame {
     public print() {
         initComponents();
         con = Connection.getConnection();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
 
     }
     java.util.Date d = new java.util.Date();
@@ -35,6 +37,7 @@ public class print extends javax.swing.JFrame {
 
     print(String text, String hno, String cno, String name) {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
         jTextArea2.append("CARDIOLOGY CLINIC \n"
                 + "\nName : " + name
                 + "\nHospital Number : " + hno

@@ -5,20 +5,12 @@
  */
 package Ward29;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -41,8 +33,11 @@ public class drugsUpdate extends javax.swing.JFrame {
         con = Connection.getConnection();
         search();
         combo();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
 
+    
+    
     int value;
     String Hopsitalno;
 
@@ -53,7 +48,7 @@ public class drugsUpdate extends javax.swing.JFrame {
         Hopsitalno = Hno;
         search();
         combo();
-
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
 
     void combo() {
@@ -73,7 +68,7 @@ public class drugsUpdate extends javax.swing.JFrame {
     void search() {
 
         try {
-            
+
             Statement st = con.createStatement();
             ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + Hopsitalno + "'");
             if (rs6.next()) {
@@ -86,7 +81,7 @@ public class drugsUpdate extends javax.swing.JFrame {
                 ImageIcon newImage = new ImageIcon(myImg);
                 jLabel6.setIcon(newImage);
             }
-            
+
             String sql1 = "select * from patient where HospitalNumber='" + Hopsitalno + "'";
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
@@ -159,7 +154,6 @@ public class drugsUpdate extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CARDIOLOGY CLINIC - Update Drugs");
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(982, 600));
@@ -450,6 +444,11 @@ public class drugsUpdate extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(255, 255, 255));
         jButton11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton11.setText("Print Barcode");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -588,11 +587,11 @@ public class drugsUpdate extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String text= jTextArea2.getText();
-        String text1= jTextField1.getText();
-        String text2= jTextField2.getText();
-        String text3= jTextField3.getText();
-        new print(text,text1,text2,text3).setVisible(true);
+        String text = jTextArea2.getText();
+        String text1 = jTextField1.getText();
+        String text2 = jTextField2.getText();
+        String text3 = jTextField3.getText();
+        new print(text, text1, text2, text3).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -622,6 +621,10 @@ public class drugsUpdate extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         jTextArea2.append("omeprazol 20mg bd \n");         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package Ward29;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Dilanka Nimsara
@@ -16,6 +18,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
 
     /**
@@ -38,7 +41,6 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CARDIOLOGY CLINIC - Home");
         setPreferredSize(new java.awt.Dimension(1500, 850));
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 

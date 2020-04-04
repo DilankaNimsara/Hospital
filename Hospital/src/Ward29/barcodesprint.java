@@ -8,6 +8,7 @@ package Ward29;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.sql.PreparedStatement;
@@ -36,6 +37,7 @@ public class barcodesprint extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
         populateJTable();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
 
     }
 
@@ -72,7 +74,7 @@ public class barcodesprint extends javax.swing.JFrame {
         Object[][] rows = new Object[list.size()][3];
         for (int i = 0; i < list.size(); i++) {
             rows[i][0] = list.get(i).getName();
-            
+
             if (list.get(i).getMyImage() != null) {
 
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
@@ -123,7 +125,6 @@ public class barcodesprint extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CARDIOLOGY CLINIC - Enter Patient Details");
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(982, 600));
@@ -206,19 +207,11 @@ public class barcodesprint extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable1.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -410,6 +403,9 @@ public class barcodesprint extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+
+         
+        
         try {
             jTable1.print();
         } catch (PrinterException ex) {
