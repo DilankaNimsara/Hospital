@@ -41,6 +41,14 @@ public class barcodesprint extends javax.swing.JFrame {
 
     }
 
+    barcodesprint(int x) {
+        this.setExtendedState(x);
+        initComponents();
+        con = Connection.getConnection();
+        populateJTable();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
+    }
+
     public void populateJTable() {
         MyQuery mq = new MyQuery();
         ArrayList<Product2> list = mq.BindTable1();
@@ -346,6 +354,7 @@ public class barcodesprint extends javax.swing.JFrame {
         jMenu2.setText("Barcode");
         jMenu2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jMenuItem4.setText("Print Barcodes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -375,8 +384,15 @@ public class barcodesprint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Home(x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Home().setVisible(true);
+            this.setVisible(false);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -387,24 +403,40 @@ public class barcodesprint extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new search().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new search(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new search().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new Updatedata().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Updatedata(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Updatedata().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new Collect_details().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Collect_details(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Collect_details().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 
-         
-        
         try {
             jTable1.print();
         } catch (PrinterException ex) {
@@ -414,8 +446,15 @@ public class barcodesprint extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        new barcodesprint().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new barcodesprint(x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new barcodesprint().setVisible(true);
+            this.setVisible(false);
+        }
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

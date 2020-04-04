@@ -36,12 +36,21 @@ public class drugsUpdate extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
 
-    
-    
     int value;
     String Hopsitalno;
 
     public drugsUpdate(int x, String Hno) {
+        initComponents();
+        con = Connection.getConnection();
+        value = x;
+        Hopsitalno = Hno;
+        search();
+        combo();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
+    }
+
+    drugsUpdate(int x, String Hno, int y) {
+        this.setExtendedState(y);
         initComponents();
         con = Connection.getConnection();
         value = x;
@@ -545,14 +554,25 @@ public class drugsUpdate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        if (value == 0) {
-            new Updatedata(Hopsitalno).setVisible(true);
-            this.setVisible(false);
-        } else if (value == 1) {
-            new search(Hopsitalno).setVisible(true);
-            this.setVisible(false);
-        }        // TODO add your handling code here:
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            if (value == 0) {
+                new Updatedata(Hopsitalno,x).setVisible(true);
+                this.setVisible(false);
+            } else if (value == 1) {
+                new search(Hopsitalno,x).setVisible(true);
+                this.setVisible(false);
+            }
+        } else {
+            if (value == 0) {
+                new Updatedata(Hopsitalno).setVisible(true);
+                this.setVisible(false);
+            } else if (value == 1) {
+                new search(Hopsitalno).setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

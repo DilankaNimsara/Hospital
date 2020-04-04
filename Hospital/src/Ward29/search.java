@@ -7,6 +7,7 @@ package Ward29;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,6 +34,21 @@ public class search extends javax.swing.JFrame {
     }
 
     public search(String Hopsitalno) {
+        initComponents();
+        con = Connection.getConnection();
+        searchdata(Hopsitalno);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
+    }
+
+    search(int x, int x0) {
+        this.setExtendedState(x);
+        initComponents();
+        con = Connection.getConnection();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
+    }
+
+    search(String Hopsitalno, int x) {
+        this.setExtendedState(x);
         initComponents();
         con = Connection.getConnection();
         searchdata(Hopsitalno);
@@ -400,9 +416,7 @@ public class search extends javax.swing.JFrame {
                         .addGap(106, 106, 106)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0))))
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(122, 122, 122)
@@ -559,6 +573,7 @@ public class search extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Search");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -694,6 +709,7 @@ public class search extends javax.swing.JFrame {
         jMenu2.setText("Barcode");
         jMenu2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jMenuItem4.setText("Print Barcodes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -741,28 +757,54 @@ public class search extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         int input = JOptionPane.showConfirmDialog(null, "Do you want to close?");
         if (input == 0) {
-            dispose();
+            WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new Collect_details().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Collect_details(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Collect_details().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
+
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Home(x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Home().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new search().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new search(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new search().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new Updatedata().setVisible(true);
-        this.setVisible(false);
+         if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new Updatedata(x, x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new Updatedata().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
@@ -774,8 +816,15 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new drugsUpdate(1, jTextField1.getText()).setVisible(true);
-        this.setVisible(false);
+
+         if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new drugsUpdate(1, jTextField1.getText(),x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new drugsUpdate(1, jTextField1.getText()).setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -799,8 +848,14 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField7KeyPressed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        new barcodesprint().setVisible(true);
-        this.setVisible(false);
+        if (this.getExtendedState() != 0) {
+            int x = this.getExtendedState();
+            new barcodesprint(x).setVisible(true);
+            this.setVisible(false);
+        } else {
+            new barcodesprint().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
