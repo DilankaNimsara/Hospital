@@ -5,10 +5,12 @@
  */
 package Ward29;
 
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -843,7 +845,7 @@ public class Updatedata extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Updated");
             ps.close();
             rs.close();
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Update fail", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -853,10 +855,10 @@ public class Updatedata extends javax.swing.JFrame {
 
         if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
-            new drugsUpdate(0, jTextField1.getText(),x).setVisible(true);
+            new search(jTextField1.getText(),x).setVisible(true);
             this.setVisible(false);
         } else {
-            new drugsUpdate(0, jTextField1.getText()).setVisible(true);
+            new search(jTextField1.getText()).setVisible(true);
             this.setVisible(false);
         }
 

@@ -6,6 +6,7 @@
 package Ward29;
 
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -18,9 +19,10 @@ public class Connection {
         java.sql.Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ASUS\\Documents\\hospital.sqlite");
+//            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ASUS\\Documents\\hospital.sqlite");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hospital", "root", "");
             return con;
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
             return null;
         }

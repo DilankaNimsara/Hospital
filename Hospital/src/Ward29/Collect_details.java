@@ -736,22 +736,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps4.setString(3, s.format(d));
                 ps4.execute();
                 ps4.close();
-
-//                String sql5 = "insert into barcode(img_title, img_data,date) values(?,?,?)";
-//                PreparedStatement ps5 = con.prepareStatement(sql5);
-//                ps5 = con.prepareStatement(sql5);
-//                ps5.setString(1, jTextField1.getText());
-//                ps5.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
-//                ps5.setString(3, s.format(d));
-//                ps.execute();
-//                ps.close();
-//                PreparedStatement ps4 = con.prepareStatement("insert into barcode(img_title, img_data,date) " + "values(?,?,?)");
-//                ps4.setString(1, jTextField1.getText());
-//                ps4.setBinaryStream(2, (InputStream) inputStream, (int) (image.length()));
-//                ps4.setString(3, s.format(d));
-//                ps4.execute();
-//                ps4.close();
-//                
+                
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextField1.getText());
@@ -766,6 +751,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps.execute();
                 ps.close();
                 String[] arr = jTextArea2.getText().split(" ");
+                
                 String sql2 = "insert into drug(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
                 PreparedStatement ps2 = con.prepareStatement(sql2);
                 ps2.setString(1, jTextField2.getText());
@@ -775,6 +761,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps2.setString(5, time.format(d));
                 ps2.execute();
                 ps.close();
+                
                 String sql22 = "insert into drughistory(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
                 PreparedStatement ps22 = con.prepareStatement(sql22);
                 ps22.setString(1, jTextField2.getText());
