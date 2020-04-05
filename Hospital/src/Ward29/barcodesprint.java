@@ -60,7 +60,7 @@ public class barcodesprint extends javax.swing.JFrame {
             if (list.get(i).getMyImage() != null) {
 
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
-                        .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
+                        .getScaledInstance(400, 120, Image.SCALE_SMOOTH));
 
                 rows[i][1] = image;
             }
@@ -68,7 +68,7 @@ public class barcodesprint extends javax.swing.JFrame {
 
         TheModel model = new TheModel(rows, columnName);
         jTable1.setModel(model);
-        jTable1.setRowHeight(130);
+        jTable1.setRowHeight(150);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
         jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
         jTable1.setBackground(new Color(233, 233, 233));
@@ -86,7 +86,7 @@ public class barcodesprint extends javax.swing.JFrame {
             if (list.get(i).getMyImage() != null) {
 
                 ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
-                        .getScaledInstance(300, 120, Image.SCALE_SMOOTH));
+                        .getScaledInstance(400, 120, Image.SCALE_SMOOTH));
 
                 rows[i][1] = image;
             }
@@ -94,7 +94,7 @@ public class barcodesprint extends javax.swing.JFrame {
 
         TheModel model = new TheModel(rows, columnName);
         jTable1.setModel(model);
-        jTable1.setRowHeight(130);
+        jTable1.setRowHeight(150);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 18));
         jTable1.setBackground(new Color(233, 233, 233));

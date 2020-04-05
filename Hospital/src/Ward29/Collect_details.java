@@ -5,8 +5,14 @@
  */
 package Ward29;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +26,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class Collect_details extends javax.swing.JFrame {
-
+    
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -34,27 +40,25 @@ public class Collect_details extends javax.swing.JFrame {
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
-
+    
     Collect_details(int x, int y) {
         this.setExtendedState(x);
         initComponents();
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
-
+    
     void clear() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
         jTextArea4.setText(null);
-        jTextField1.setText(null);
-        jTextField2.setText(null);
         jTextField3.setText(null);
         jTextField4.setText(null);
         jTextField6.setText(null);
         jTextArea3.setText(null);
         jComboBox1.setSelectedItem("");
     }
-
+    
     void clearall() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
@@ -68,7 +72,7 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea2.setText(null);
         jComboBox1.setSelectedItem("");
     }
-
+    
     String text, hno, cno, name;
 
     /**
@@ -121,8 +125,6 @@ public class Collect_details extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -312,6 +314,11 @@ public class Collect_details extends javax.swing.JFrame {
         jLabel1.setText("Hospital Number");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -472,14 +479,14 @@ public class Collect_details extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(931, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel9)
-                .addGap(43, 43, 43))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -495,7 +502,7 @@ public class Collect_details extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("Clear All");
+        jButton2.setText("Clear");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -520,24 +527,6 @@ public class Collect_details extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton4.setText("Clear Drug List");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton13.setBackground(new java.awt.Color(255, 255, 255));
-        jButton13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton13.setText("Print Barcode");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -547,10 +536,6 @@ public class Collect_details extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -564,10 +549,8 @@ public class Collect_details extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
 
@@ -685,7 +668,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        
         if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new Home(x).setVisible(true);
@@ -736,7 +719,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps4.setString(3, s.format(d));
                 ps4.execute();
                 ps4.close();
-                
+
                 String sql = "insert into patient(HospitalNumber,ClinicNumber,Name,Address,Age,TPNumber,Diagnosis,NearestHospital,Allergies) values(?,?,?,?,?,?,?,?,?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextField1.getText());
@@ -751,7 +734,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps.execute();
                 ps.close();
                 String[] arr = jTextArea2.getText().split(" ");
-                
+
                 String sql2 = "insert into drug(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
                 PreparedStatement ps2 = con.prepareStatement(sql2);
                 ps2.setString(1, jTextField2.getText());
@@ -761,7 +744,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps2.setString(5, time.format(d));
                 ps2.execute();
                 ps.close();
-                
+
                 String sql22 = "insert into drughistory(ClinicNumber,patientHname,drugslist,date,time) values(?,?,?,?,?)";
                 PreparedStatement ps22 = con.prepareStatement(sql22);
                 ps22.setString(1, jTextField2.getText());
@@ -771,7 +754,7 @@ public class Collect_details extends javax.swing.JFrame {
                 ps22.setString(5, time.format(d));
                 ps22.execute();
                 ps22.close();
-                JOptionPane.showMessageDialog(this, "Data is inserted");
+                new barcodePrint(jTextField1.getText()).setVisible(true);
                 clear();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Data already exists", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -779,11 +762,9 @@ public class Collect_details extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jTextArea2.setText(null);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         int input = JOptionPane.showConfirmDialog(null, "Do you want to close?");
@@ -864,7 +845,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-
+        
         new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
         jTextArea2.setText(null);
         // TODO add your handling code here:
@@ -891,12 +872,8 @@ public class Collect_details extends javax.swing.JFrame {
         hno = jTextField1.getText();        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4KeyPressed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-
-    }//GEN-LAST:event_jButton13ActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-
+        
         if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new barcodesprint(x).setVisible(true);
@@ -906,6 +883,10 @@ public class Collect_details extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+       
+    }//GEN-LAST:event_jTextField1FocusLost
 
     /**
      * @param args the command line arguments
@@ -947,10 +928,8 @@ public class Collect_details extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -997,5 +976,5 @@ public class Collect_details extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     byte[] photo = null;
-
+    
 }

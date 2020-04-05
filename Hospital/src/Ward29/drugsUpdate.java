@@ -296,7 +296,7 @@ public class drugsUpdate extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel9.setText("Patient's Drugs");
+        jLabel9.setText("Patient's Drugs History");
 
         jLabel6.setText(" ");
 
