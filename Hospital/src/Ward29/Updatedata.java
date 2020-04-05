@@ -752,7 +752,7 @@ public class Updatedata extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       if (this.getExtendedState() != 0) {
+        if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new Collect_details(x, x).setVisible(true);
             this.setVisible(false);
@@ -786,7 +786,7 @@ public class Updatedata extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         if (this.getExtendedState() != 0) {
+        if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new Updatedata(x, x).setVisible(true);
             this.setVisible(false);
@@ -797,7 +797,11 @@ public class Updatedata extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        search();
+        if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            search();
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
@@ -805,7 +809,13 @@ public class Updatedata extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        search();
+
+        if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            search();
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
@@ -820,45 +830,56 @@ public class Updatedata extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        search();        // TODO add your handling code here:
+        if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            search();
+        }       // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        String key = jTextField5.getText();
+        if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
 
-        try {
+            try {
 
-            String sql = "update patient set "
-                    + "Name='" + jTextField3.getText()
-                    + "',Address ='" + jTextArea1.getText()
-                    + "',Age ='" + jTextField6.getText()
-                    + "',TPNumber ='" + jTextField4.getText()
-                    + "',Diagnosis ='" + jTextArea4.getText()
-                    + "',NearestHospital ='" + (String) jComboBox1.getSelectedItem()
-                    + "',Allergies ='" + jTextArea3.getText()
-                    + "'where HospitalNumber='" + jTextField1.getText() + "'";
-            ps = con.prepareStatement(sql);
-            ps.execute();
-            JOptionPane.showMessageDialog(this, "Updated");
-            ps.close();
-            rs.close();
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(this, "Update fail", "Error", JOptionPane.ERROR_MESSAGE);
+                String sql = "update patient set "
+                        + "Name='" + jTextField3.getText()
+                        + "',Address ='" + jTextArea1.getText()
+                        + "',Age ='" + jTextField6.getText()
+                        + "',TPNumber ='" + jTextField4.getText()
+                        + "',Diagnosis ='" + jTextArea4.getText()
+                        + "',NearestHospital ='" + (String) jComboBox1.getSelectedItem()
+                        + "',Allergies ='" + jTextArea3.getText()
+                        + "'where HospitalNumber='" + jTextField1.getText() + "'";
+                ps = con.prepareStatement(sql);
+                ps.execute();
+                JOptionPane.showMessageDialog(this, "Updated");
+                ps.close();
+                rs.close();
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(this, "Update fail", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        if (this.getExtendedState() != 0) {
-            int x = this.getExtendedState();
-            new search(jTextField1.getText(),x).setVisible(true);
-            this.setVisible(false);
+        if (jTextField5.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
         } else {
-            new search(jTextField1.getText()).setVisible(true);
-            this.setVisible(false);
+            if (this.getExtendedState() != 0) {
+                int x = this.getExtendedState();
+                new search(jTextField1.getText(), x).setVisible(true);
+                this.setVisible(false);
+            } else {
+                new search(jTextField1.getText()).setVisible(true);
+                this.setVisible(false);
+            }
         }
+
 
     }//GEN-LAST:event_jButton5ActionPerformed
 

@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class Collect_details extends javax.swing.JFrame {
-    
+
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -40,14 +40,14 @@ public class Collect_details extends javax.swing.JFrame {
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
-    
+
     Collect_details(int x, int y) {
         this.setExtendedState(x);
         initComponents();
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
     }
-    
+
     void clear() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
@@ -58,7 +58,7 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea3.setText(null);
         jComboBox1.setSelectedItem("");
     }
-    
+
     void clearall() {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
@@ -72,7 +72,7 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea2.setText(null);
         jComboBox1.setSelectedItem("");
     }
-    
+
     String text, hno, cno, name;
 
     /**
@@ -668,7 +668,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new Home(x).setVisible(true);
@@ -762,7 +762,6 @@ public class Collect_details extends javax.swing.JFrame {
 
         }
 
-        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -845,9 +844,12 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
-        new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
-        jTextArea2.setText(null);
+        if (!jTextArea2.getText().equals("")) {
+            new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
+            jTextArea2.setText(null);
+        }else{
+            JOptionPane.showMessageDialog(this, "Fill the Drugs list");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -873,7 +875,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4KeyPressed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
+
         if (this.getExtendedState() != 0) {
             int x = this.getExtendedState();
             new barcodesprint(x).setVisible(true);
@@ -885,7 +887,7 @@ public class Collect_details extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-       
+
     }//GEN-LAST:event_jTextField1FocusLost
 
     /**
@@ -976,5 +978,5 @@ public class Collect_details extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     byte[] photo = null;
-    
+
 }

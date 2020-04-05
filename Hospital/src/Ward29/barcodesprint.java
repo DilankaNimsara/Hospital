@@ -458,10 +458,14 @@ public class barcodesprint extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = dFormat.format(jDateChooser1.getDate());
-        populateJTable(date1);
+
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Choose a date");
+        } else {
+            SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = dFormat.format(jDateChooser1.getDate());
+            populateJTable(date1);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

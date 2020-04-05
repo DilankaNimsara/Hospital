@@ -925,6 +925,7 @@ public class search extends javax.swing.JFrame {
         jTextField7.setText(null);
         jTextField8.setText(null);
         jTextArea3.setText(null);
+        jLabel14.setIcon(null);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -989,17 +990,31 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        searchdata();
+
+        if (jTextField7.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            searchdata();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        searchdata();
-        // TODO add your handling code here:
+        if (jTextField7.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            searchdata();
+        }
     }//GEN-LAST:event_jTextField7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new print(jTextArea2.getText(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText()).setVisible(true);        // TODO add your handling code here:
+        if (jTextArea2.getText().equals(null)) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
+        } else {
+            new print(jTextArea2.getText(), jTextField1.getText(), jTextField2.getText(), jTextField3.getText()).setVisible(true);
+        }
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
@@ -1022,43 +1037,41 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//        ImageIcon image = new ImageIcon(img);
-//        Image im = image.getImage();
-//        Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
-//        ImageIcon newImage = new ImageIcon(myImg);
-//        jLabel14.setIcon(newImage);
-//        MessageFormat head = new MessageFormat(jLabel14.getText());
-//        printComponents(grphcs);
 
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setJobName("Print data");
+        if (jLabel14.getIcon() == null) {
+            JOptionPane.showMessageDialog(this, "Barcode not found");
+        } else {
 
-        job.setPrintable(new Printable() {
-            public int print(Graphics pg, PageFormat pf, int pageNum) {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setJobName("Print data");
+
+            job.setPrintable(new Printable() {
+                public int print(Graphics pg, PageFormat pf, int pageNum) {
 
 //                  pf.setOrientation(PageFormat.LANDSCAPE);  
-                if (pageNum > 0) {
-                    return Printable.NO_SUCH_PAGE;
+                    if (pageNum > 0) {
+                        return Printable.NO_SUCH_PAGE;
+                    }
+
+                    Graphics2D g2 = (Graphics2D) pg;
+                    g2.translate(pf.getImageableX(), pf.getImageableY());
+                    g2.scale(0.5, 0.5);
+
+                    jPanel8.paint(g2);
+
+                    return Printable.PAGE_EXISTS;
+
                 }
+            });
 
-                Graphics2D g2 = (Graphics2D) pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                g2.scale(0.5, 0.5);
+            boolean ok = job.printDialog();
 
-                jPanel8.paint(g2);
+            if (ok) {
+                try {
+                    job.print();
+                } catch (PrinterException ex) {
 
-                return Printable.PAGE_EXISTS;
-
-            }
-        });
-
-        boolean ok = job.printDialog();
-
-        if (ok) {
-            try {
-                job.print();
-            } catch (PrinterException ex) {
-
+                }
             }
         }
 
@@ -1127,15 +1140,19 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (this.getExtendedState() != 0) {
-            int x = this.getExtendedState();
-            new drugsUpdate(1, jTextField1.getText(), x).setVisible(true);
-            this.setVisible(false);
+        if (jTextField1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Enter Hospital Number or Clinic Number");
         } else {
-            new drugsUpdate(1, jTextField1.getText()).setVisible(true);
-            this.setVisible(false);
+            if (this.getExtendedState() != 0) {
+                int x = this.getExtendedState();
+                new drugsUpdate(1, jTextField1.getText(), x).setVisible(true);
+                this.setVisible(false);
+            } else {
+                new drugsUpdate(1, jTextField1.getText()).setVisible(true);
+                this.setVisible(false);
+            }
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
