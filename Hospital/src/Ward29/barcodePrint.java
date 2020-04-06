@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  * @author Dilanka Nimsara
  */
 public class barcodePrint extends javax.swing.JFrame {
-
+    
     java.sql.Connection con;
     PreparedStatement ps;
     ResultSet rs;
@@ -38,16 +38,16 @@ public class barcodePrint extends javax.swing.JFrame {
         initComponents();
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
-
+        
     }
-
+    
     barcodePrint(String hno) {
         initComponents();
         con = Connection.getConnection();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("cc.png")));
-
+        
         try {
-
+            
             Statement st = con.createStatement();
             ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + hno + "'");
             if (rs6.next()) {
@@ -59,10 +59,12 @@ public class barcodePrint extends javax.swing.JFrame {
                 Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon newImage = new ImageIcon(myImg);
                 jLabel14.setIcon(newImage);
-
+                
             }
+            rs6.close();
+            st.close();
         } catch (SQLException e) {
-
+            
         }
     }
 
@@ -84,9 +86,7 @@ public class barcodePrint extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CARDIOLOGY CLINIC - Print");
-        setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -185,10 +185,10 @@ public class barcodePrint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName("Print data");
-
+        
         job.setPrintable(new Printable() {
             public int print(Graphics pg, PageFormat pf, int pageNum) {
 
@@ -196,33 +196,33 @@ public class barcodePrint extends javax.swing.JFrame {
                 if (pageNum > 0) {
                     return Printable.NO_SUCH_PAGE;
                 }
-
+                
                 Graphics2D g2 = (Graphics2D) pg;
                 g2.translate(pf.getImageableX(), pf.getImageableY());
                 g2.scale(0.5, 0.5);
-
+                
                 jPanel8.paint(g2);
-
+                
                 return Printable.PAGE_EXISTS;
-
+                
             }
         });
-
+        
         boolean ok = job.printDialog();
-
+        
         if (ok) {
             try {
                 job.print();
             } catch (PrinterException ex) {
-
+                
             }
         }
-
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();        // TODO add your handling code here:
+        this.setVisible(false);  // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

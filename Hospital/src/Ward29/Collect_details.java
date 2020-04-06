@@ -52,6 +52,8 @@ public class Collect_details extends javax.swing.JFrame {
         jTextArea1.setText(null);
         jTextArea3.setText(null);
         jTextArea4.setText(null);
+        jTextField1.setText(null);
+        jTextField2.setText(null);
         jTextField3.setText(null);
         jTextField4.setText(null);
         jTextField6.setText(null);
@@ -692,6 +694,8 @@ public class Collect_details extends javax.swing.JFrame {
 
         Barcode_Image.createImage(jTextField1.getText() + ".png", jTextField1.getText());
 
+        int x = 0;
+
         java.util.Date d = new java.util.Date();
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -754,12 +758,17 @@ public class Collect_details extends javax.swing.JFrame {
                 ps22.setString(5, time.format(d));
                 ps22.execute();
                 ps22.close();
-                new barcodePrint(jTextField1.getText()).setVisible(true);
-                clear();
+                x = 1;
+//                
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Data already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+                x = 0;
+                JOptionPane.showMessageDialog(this, "Somting went wrong! Use diffrent Hospital number ", "Warning", JOptionPane.WARNING_MESSAGE);
             }
+        }
 
+        if (x == 1) {
+            new barcodePrint(jTextField1.getText()).setVisible(true);
+            clear();
         }
 
 
@@ -847,7 +856,7 @@ public class Collect_details extends javax.swing.JFrame {
         if (!jTextArea2.getText().equals("")) {
             new print(jTextArea2.getText(), hno, cno, name).setVisible(true);
             jTextArea2.setText(null);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Fill the Drugs list");
         }
         // TODO add your handling code here:

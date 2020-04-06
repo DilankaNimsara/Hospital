@@ -92,10 +92,12 @@ public class search extends javax.swing.JFrame {
                 jLabel14.setIcon(newImage);
 
             }
-
+            st.close();
             String sql1 = "select * from patient where HospitalNumber='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "' ";
+
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
+
             if (rs.next()) {
                 String add1 = rs.getString("HospitalNumber");
                 jTextField1.setText(add1);
@@ -115,7 +117,12 @@ public class search extends javax.swing.JFrame {
                 jTextField8.setText(add7);
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Hospital Number or Clinic Number Not Found in database");
             }
+
+            ps.close();
 
             String sql = "select * from drug where patientHname='" + jTextField7.getText() + "' or ClinicNumber='" + jTextField7.getText() + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
@@ -126,6 +133,8 @@ public class search extends javax.swing.JFrame {
                 String item1 = rs2.getString("date");
                 jTextField5.setText(item1);
             }
+
+            ps2.close();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e);
@@ -147,6 +156,8 @@ public class search extends javax.swing.JFrame {
                 ImageIcon newImage = new ImageIcon(myImg);
                 jLabel14.setIcon(newImage);
             }
+
+            st.close();
 
             String sql1 = "select * from patient where HospitalNumber='" + Hno + "' ";
             ps = con.prepareStatement(sql1);
@@ -170,7 +181,11 @@ public class search extends javax.swing.JFrame {
                 jTextField8.setText(add7);
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
+            } else {
+                JOptionPane.showMessageDialog(this, "Hospital Number or Clinic Number Not Found in database");
             }
+
+            ps.close();
 
             String sql = "select * from drug where patientHname='" + Hno + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
@@ -182,6 +197,7 @@ public class search extends javax.swing.JFrame {
                 jTextField5.setText(add1);
             }
 
+            ps2.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }

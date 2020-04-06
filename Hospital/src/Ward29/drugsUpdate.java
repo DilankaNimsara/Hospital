@@ -69,6 +69,7 @@ public class drugsUpdate extends javax.swing.JFrame {
                 String item1 = rs.getString("date");
                 jComboBox1.addItem(item1);
             }
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -90,6 +91,8 @@ public class drugsUpdate extends javax.swing.JFrame {
                 ImageIcon newImage = new ImageIcon(myImg);
                 jLabel6.setIcon(newImage);
             }
+            
+            st.close();
 
             String sql1 = "select * from patient where HospitalNumber='" + Hopsitalno + "'";
             ps = con.prepareStatement(sql1);
@@ -102,6 +105,8 @@ public class drugsUpdate extends javax.swing.JFrame {
                 String add2 = rs.getString("Name");
                 jTextField3.setText(add2);
             }
+            
+            ps.close();
 
             String sql = "select * from drug where patientHname='" + Hopsitalno + "' ";
             PreparedStatement ps2 = con.prepareStatement(sql);
@@ -114,6 +119,7 @@ public class drugsUpdate extends javax.swing.JFrame {
                 jTextField4.setText(add1);
             }
 
+            ps2.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -436,6 +442,7 @@ public class drugsUpdate extends javax.swing.JFrame {
                 String add2 = rs2.getString("drugslist");
                 jTextArea2.setText(add2);
             }
+            ps2.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }

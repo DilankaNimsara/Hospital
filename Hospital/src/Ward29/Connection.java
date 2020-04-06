@@ -20,6 +20,7 @@ public class Connection {
         try {
             Class.forName("org.sqlite.JDBC");
 //            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ASUS\\Documents\\hospital.sqlite");
+//            con = DriverManager.getConnection("jdbc:sqlite:hospital.sqlite");
             con = DriverManager.getConnection("jdbc:mysql://localhost/hospital", "root", "");
             return con;
         } catch (ClassNotFoundException | SQLException ex) {

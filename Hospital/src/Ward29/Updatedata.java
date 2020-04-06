@@ -73,18 +73,6 @@ public class Updatedata extends javax.swing.JFrame {
     void search(String Hno) {
         try {
 
-//            Statement st = con.createStatement();
-//            ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + Hno + "'");
-//            if (rs6.next()) {
-//                byte[] img = rs6.getBytes("img_data");
-//
-//                //Resize The ImageIcon
-//                ImageIcon image = new ImageIcon(img);
-//                Image im = image.getImage();
-//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
-//                ImageIcon newImage = new ImageIcon(myImg);
-//                jLabel14.setIcon(newImage);
-//            }
             String sql1 = "select * from patient where HospitalNumber='" + Hno + "' ";
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
@@ -107,7 +95,10 @@ public class Updatedata extends javax.swing.JFrame {
                 jComboBox1.setSelectedItem(add7);
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
+            } else {
+                JOptionPane.showMessageDialog(this, "Hospital Number or Clinic Number Not Found in database");
             }
+            ps.close();
 
             String sql = "select * from drug where patientHname='" + Hno + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
@@ -118,6 +109,7 @@ public class Updatedata extends javax.swing.JFrame {
                 String add1 = rs2.getString("date");
                 jTextField7.setText(add1);
             }
+            ps2.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
@@ -126,39 +118,7 @@ public class Updatedata extends javax.swing.JFrame {
 
     void search() {
 
-//         try {
-////
-//////            Statement st = con.createStatement();
-//            ResultSet rs = st.executeQuery("select * from barcode where img_title = '"+jTextField1.getText()+"'");
-//            if (rs.next()) {
-//                byte[] img = rs.getBytes("img_data");
-//
-//                //Resize The ImageIcon
-//                ImageIcon image = new ImageIcon(img);
-//                Image im = image.getImage();
-//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
-//                ImageIcon newImage = new ImageIcon(myImg);
-//                jLabel14.setIcon(newImage);
-////            } else {
-////                JOptionPane.showMessageDialog(null, "No Data");
-////            }
-////        } catch (Exception ex) {
-////            ex.printStackTrace();
-////        }
         try {
-
-//            Statement st = con.createStatement();
-//            ResultSet rs6 = st.executeQuery("select * from barcode where img_title = '" + jTextField5.getText() + "'");
-//            if (rs6.next()) {
-//                byte[] img = rs6.getBytes("img_data");
-//
-//                //Resize The ImageIcon
-//                ImageIcon image = new ImageIcon(img);
-//                Image im = image.getImage();
-//                Image myImg = im.getScaledInstance(jLabel14.getWidth(), jLabel14.getHeight(), Image.SCALE_SMOOTH);
-//                ImageIcon newImage = new ImageIcon(myImg);
-//                jLabel14.setIcon(newImage);
-//            }
             String sql1 = "select * from patient where HospitalNumber='" + jTextField5.getText() + "' or ClinicNumber='" + jTextField5.getText() + "' ";
             ps = con.prepareStatement(sql1);
             rs = ps.executeQuery();
@@ -181,8 +141,11 @@ public class Updatedata extends javax.swing.JFrame {
                 jComboBox1.setSelectedItem(add7);
                 String add8 = rs.getString("Allergies");
                 jTextArea3.setText(add8);
+            } else {
+                JOptionPane.showMessageDialog(this, "Hospital Number or Clinic Number Not Found in database");
             }
 
+            ps.close();
             String sql = "select * from drug where patientHname='" + jTextField5.getText() + "' or ClinicNumber='" + jTextField5.getText() + "'";
             PreparedStatement ps2 = con.prepareStatement(sql);
             ResultSet rs2 = ps2.executeQuery();
@@ -192,7 +155,7 @@ public class Updatedata extends javax.swing.JFrame {
                 String add1 = rs2.getString("date");
                 jTextField7.setText(add1);
             }
-
+            ps2.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
